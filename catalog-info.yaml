@@ -25,10 +25,10 @@ metadata:
     - url: https://console-openshift-console.apps.ocp.ocp-gm.de/k8s/ns/gitops-demo-dev/deploymentconfigs/quinoa-wind-turbine
       title: DeploymentConfig-dev
       icon: web
-    - url: https://console-openshift-console.apps.ocp.ocp-gm.de/k8s/ns/gitops-demo-dev/deploymentconfigs/quinoa-wind-turbine
+    - url: https://console-openshift-console.apps.ocp.ocp-gm.de/k8s/ns/gitops-demo-stage/deploymentconfigs/quinoa-wind-turbine
       title: DeploymentConfig-stage
       icon: web
-    - url: https://console-openshift-console.apps.ocp.ocp-gm.de/k8s/ns/gitops-demo-dev/deploymentconfigs/quinoa-wind-turbine
+    - url: https://console-openshift-console.apps.ocp.ocp-gm.de/k8s/ns/gitops-demo-prod/deploymentconfigs/quinoa-wind-turbine
       title: DeploymentConfig-prod
       icon: web
     - url: https://devspaces${{values.cluster_id}}/#https://github.com/gmodzelewski/quinoa-wind-turbine?che-editor=che-incubator/che-code/latest&devfilePath=devfile.yaml
@@ -40,4 +40,4 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: gmodzelewski
+  owner: user:default/gmodzelewski
