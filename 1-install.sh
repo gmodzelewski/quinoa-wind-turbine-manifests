@@ -95,32 +95,32 @@ EOF
   oc wait --for=condition=initialized --timeout=60s pods -l name=amq-streams-cluster-operator -n openshift-operators
 fi
 
-# --- Camel K -------------------------------------------------------
-CAMELK_INSTALLED=$(oc get csv -n openshift-operators | grep red-hat-camel-k-operator)
-if [[ $CAMELK_INSTALLED == *"Succeeded"* ]]; then
-  echo "✅ Red Hat Camel K Operator"
-else
-  echo "Installing Red Hat Camel K ..."
+# # --- Camel K -------------------------------------------------------
+# CAMELK_INSTALLED=$(oc get csv -n openshift-operators | grep red-hat-camel-k-operator)
+# if [[ $CAMELK_INSTALLED == *"Succeeded"* ]]; then
+#   echo "✅ Red Hat Camel K Operator"
+# else
+#   echo "Installing Red Hat Camel K ..."
 
-  read -r -d '' YAML_CONTENT <<EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  labels:
-    operators.coreos.com/red-hat-camel-k.openshift-operators: ""
-  name: red-hat-camel-k
-  namespace: openshift-operators
-spec:
-  channel: 1.10.x
-  installPlanApproval: Automatic
-  name: red-hat-camel-k
-  source: redhat-operators
-  sourceNamespace: openshift-marketplace
-  startingCSV: red-hat-camel-k-operator.v1.10.6
-EOF
-  echo "$YAML_CONTENT" | oc apply -f -
-  oc wait --for=condition=initialized --timeout=60s pods -l name=camel-k-operator -n openshift-operators
-fi
+#   read -r -d '' YAML_CONTENT <<EOF
+# apiVersion: operators.coreos.com/v1alpha1
+# kind: Subscription
+# metadata:
+#   labels:
+#     operators.coreos.com/red-hat-camel-k.openshift-operators: ""
+#   name: red-hat-camel-k
+#   namespace: openshift-operators
+# spec:
+#   channel: 1.10.x
+#   installPlanApproval: Automatic
+#   name: red-hat-camel-k
+#   source: redhat-operators
+#   sourceNamespace: openshift-marketplace
+#   startingCSV: red-hat-camel-k-operator.v1.10.6
+# EOF
+#   echo "$YAML_CONTENT" | oc apply -f -
+#   oc wait --for=condition=initialized --timeout=60s pods -l name=camel-k-operator -n openshift-operators
+# fi
 
 # --- Dev Spaces -------------------------------------------------------
 DEVSPACES_INSTALLED=$(oc get csv -n openshift-operators | grep red-hat-camel-k-operator)
@@ -148,7 +148,7 @@ spec:
 EOF
   echo "$YAML_CONTENT" | oc apply -f -
   oc wait --for=condition=initialized --timeout=60s pods -l app=devspaces-operator -n openshift-operators
-
+fi
 #   read -r -d '' YAML_CONTENT <<EOF
 # apiVersion: org.eclipse.che/v2
 # kind: CheCluster
