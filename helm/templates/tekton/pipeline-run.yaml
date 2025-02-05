@@ -25,16 +25,14 @@ spec:
     name: wind-turbine-pipeline
   workspaces:
   - name: source
-    persistentVolumeClaim:
-      volumeClaimTemplate:
-        spec:
-          accessModes:
-          - ReadWriteOnce
-          resources:
-            requests:
-              storage: 1Gi
-          storageClassName: managed-nfs-storage
-          volumeMode: Filesystem
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        volumeMode: Filesystem
   - name: maven-settings
     volumeClaimTemplate:
       spec:

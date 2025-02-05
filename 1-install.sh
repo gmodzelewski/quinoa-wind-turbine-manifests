@@ -22,7 +22,6 @@ spec:
   name: openshift-pipelines-operator-rh
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: openshift-pipelines-operator-rh.v1.14.3
 EOF
   # Apply the inline YAML using 'oc apply'
   echo "$YAML_CONTENT" | oc apply -f -
@@ -53,7 +52,6 @@ spec:
   name: openshift-gitops-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: openshift-gitops-operator.v1.12.1
 EOF
 
   # Apply the inline YAML using 'oc apply'
@@ -89,7 +87,6 @@ spec:
   name: amq-streams
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: amqstreams.v2.6.0-1
 EOF
   echo "$YAML_CONTENT" | oc apply -f -
   oc wait --for=condition=initialized --timeout=60s pods -l name=amq-streams-cluster-operator -n openshift-operators
@@ -144,7 +141,6 @@ spec:
   name: devworkspace-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: devworkspace-operator.v0.26.0
 EOF
   echo "$YAML_CONTENT" | oc apply -f -
   oc wait --for=condition=initialized --timeout=60s pods -l app=devspaces-operator -n openshift-operators
