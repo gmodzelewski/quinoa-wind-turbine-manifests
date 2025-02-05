@@ -66,7 +66,7 @@ Create the image. If the image tag has a sha256 image digest, set the digest acc
 */}}
 {{- define "app.image" -}}
 {{- if .Values.imageDigest }}
-{{- printf "%s%s" .Values.image .Values.imageDigest }}
+{{- printf "%s@%s" .Values.image .Values.imageDigest }}
 {{- else }}
 {{- printf "%s:%s" .Values.image (.Values.imageTag | default .Chart.AppVersion) }}
 {{- end }}
