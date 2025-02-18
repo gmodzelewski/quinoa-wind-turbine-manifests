@@ -3,6 +3,7 @@
   "cluster": "rosa",
   "url": "https://api.rosa-r8lnp.5g2u.p1.openshiftapps.com:6443",
   "namespace": "gitops-demo-dev",
+  "disableSecretsDeployment": "true",
   "imageTag": "latest",
   "imageDigest": "sha256:f5a5630f1186f85a364661c9d4160820a7e2375a9bd204b0ddf9d56fb0435b0d",
   "followChangesForBranch": "",
