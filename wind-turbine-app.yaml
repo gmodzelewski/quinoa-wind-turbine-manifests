@@ -29,7 +29,7 @@ spec:
   #       followChangesForBranch: "" # -> empty means don't follow
   template:
     metadata:
-      name: 'wind-turbine-{{.stage}}-{{.cluster}}-app'
+      name: "wind-turbine-{{stage}}-{{cluster}}-app"
     spec:
       project: default 
       source:
@@ -46,20 +46,20 @@ spec:
           - name: image
             value: 'quay.io/modzelewski/quinoa-wind-turbine'
           - name: imageTag
-            value: '{{.imageTag}}'
+            value: '{{imageTag}}'
           - name: imageDigest
-            value: '{{.imageDigest}}'
+            value: '{{imageDigest}}'
           - name: followChangesForBranch
-            value: '{{.followChangesForBranch}}'
+            value: '{{followChangesForBranch}}'
           - name: stage
-            value: '{{.stage}}'
+            value: '{{stage}}'
           - name: disableSecretsDeployment
             value: 'true'
           - name: replicas
-            value: '{{.replicas}}'
+            value: '{{replicas}}'
       destination:
-        server: '{{.url}}' 
-        namespace: '{{.namespace}}'
+        server: '{{url}}' 
+        namespace: '{{namespace}}'
       syncPolicy: 
         automated:
           selfHeal: true
