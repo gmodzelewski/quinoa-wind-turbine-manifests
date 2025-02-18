@@ -1,5 +1,5 @@
 {
-  "stage": "devRosa",
+  "stage": "dev",
   "cluster": "rosa",
   "url": "https://api.rosa-r8lnp.5g2u.p1.openshiftapps.com:6443",
   "namespace": "gitops-demo-dev",

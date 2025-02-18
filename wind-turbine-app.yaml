@@ -29,7 +29,7 @@ spec:
   #       followChangesForBranch: "" # -> empty means don't follow
   template:
     metadata:
-      name: 'wind-turbine-{{.stage}}-app'
+      name: 'wind-turbine-{{.stage}}-{{.cluster}}-app'
     spec:
       project: default 
       source:
