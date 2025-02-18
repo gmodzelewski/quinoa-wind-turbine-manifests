@@ -7,7 +7,7 @@ spec:
   generators: 
   - git:
       repoURL: "https://github.com/gmodzelewski/quinoa-wind-turbine-manifests"
-      revision: main
+      revision: "feature/3"
       files:
       - path: "stages/**/config.json"
   # - list:
@@ -29,7 +29,7 @@ spec:
   #       followChangesForBranch: "" # -> empty means don't follow
   template:
     metadata:
-      name: 'wind-turbine-{{stage}}-app'
+      name: 'wind-turbine-{{.stage}}-app'
     spec:
       project: default 
       source:
@@ -37,7 +37,7 @@ spec:
         path: helm
         helm:
           # valueFiles: 
-          # - values.{{cluster}}.yaml
+          # - values.{{.cluster}}.yaml
           parameters:
           - name: repoUrl
             value: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests'
@@ -46,32 +46,30 @@ spec:
           - name: image
             value: 'quay.io/modzelewski/quinoa-wind-turbine'
           - name: imageTag
-            value: '{{imageTag}}'
+            value: '{{.imageTag}}'
           - name: imageDigest
-            value: '{{imageDigest}}'
+            value: '{{.imageDigest}}'
           - name: followChangesForBranch
-            value: '{{followChangesForBranch}}'
+            value: '{{.followChangesForBranch}}'
           - name: stage
-            value: '{{stage}}'
+            value: '{{.stage}}'
           - name: disableSecretsDeployment
             value: 'true'
           - name: replicas
-            value: '{{replicas}}'
+            value: '{{.replicas}}'
       destination:
-        server: '{{url}}' 
-        namespace: '{{namespace}}'
+        server: '{{.url}}' 
+        namespace: '{{.namespace}}'
       syncPolicy: 
         automated:
           selfHeal: true
           prune: true
-        syncOptions:
-        - CreateNamespace=true
       ignoreDifferences:
       - group: image.openshift.io
         kind: ImageStream
         jsonPointers:
         - /spec/tags
-      - group: apps.openshift.io
-        kind: DeploymentConfig
-        jsonPointers:
-        - /spec/template/spec/containers/0/image
+      # - group: apps.openshift.io
+      #   kind: DeploymentConfig
+      #   jsonPointers:
+      #   - /spec/template/spec/containers/0/image
