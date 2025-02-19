@@ -17,10 +17,6 @@ spec:
       value: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
     - name: GIT_BRANCH
       value: 'main'
-    - name: MANIFESTS_GIT_REPO
-      value: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests.git'
-    - name: MANIFESTS_GIT_BRANCH
-      value: 'main'
   pipelineRef:
     name: wind-turbine-pipeline
   workspaces:
