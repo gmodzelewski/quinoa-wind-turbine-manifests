@@ -1,9 +1,10 @@
 {
   "stage": "prod",
+  "cluster": "default",
   "url": "https://kubernetes.default.svc",
   "namespace": "gitops-demo-prod",
   "imageTag": "Release-1.0.0",
   "imageDigest": "false",
   "followChangesForBranch": "",
-  "replicas": "1"
+  "replicas": "0"
 }
