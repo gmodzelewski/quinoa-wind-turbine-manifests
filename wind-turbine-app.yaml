@@ -9,7 +9,7 @@ spec:
   generators: 
   - git:
       repoURL: "https://github.com/gmodzelewski/quinoa-wind-turbine-manifests"
-      revision: "feature/3"
+      revision: "main"
       files:
       - path: "stages/**/config.json"
   # - list:
