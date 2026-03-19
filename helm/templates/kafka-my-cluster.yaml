@@ -13,7 +13,7 @@ spec:
     topicOperator: {}
     userOperator: {}
   kafka:
-    version: 3.8.0
+    version: 4.1.0
     config:
       default.replication.factor: 3
       min.insync.replicas: 2
