@@ -46,6 +46,7 @@ spec:
     - name: userHome
       value: /tekton/home
     taskRef:
+      apiVersion: tekton.dev/v1beta1
       kind: ClusterTask
       name: git-clone
     workspaces:
@@ -65,6 +66,7 @@ spec:
     runAfter:
     - git-clone
     taskRef:
+      apiVersion: tekton.dev/v1beta1
       kind: ClusterTask
       name: maven
     workspaces:
@@ -93,6 +95,7 @@ spec:
     runAfter:
     - maven
     taskRef:
+      apiVersion: tekton.dev/v1beta1
       kind: ClusterTask
       name: buildah
     workspaces:
@@ -113,6 +116,7 @@ spec:
     runAfter:
     - buildah
     taskRef:
+      apiVersion: tekton.dev/v1
       kind: Task
       name: git-update-deployment
     workspaces:
@@ -150,6 +154,7 @@ spec:
         - name: VERSION
           value: latest
       taskRef:
+        apiVersion: tekton.dev/v1beta1
         kind: ClusterTask
         name: openshift-client
   workspaces:
