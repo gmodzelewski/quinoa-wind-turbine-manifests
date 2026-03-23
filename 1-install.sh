@@ -59,7 +59,10 @@ EOF
   
   echo "Workaround: Sleep for 3 seconds until roles and service accounts are available"
   sleep 3
-  $(oc adm policy add-cluster-role-to-user cluster-admin -z openshift-gitops-argocd-application-controller -n openshift-gitops)
+
+  # Argo CD RBAC: namespace-scoped admin is applied after gitops-demo-* namespaces exist
+  # (see "OpenShift GitOps: namespace-scoped RBAC" later in this script).
+
   oc wait --for=condition=initialized --timeout=60s pods -l app.kubernetes.io/name=openshift-gitops-server -n openshift-gitops
   
   ## Add edge termination to gitops route
@@ -235,6 +238,28 @@ if [[ $NAMESPACE_PROD_EXISTS == *"prod"* ]]; then
 else
   echo "Creating namespace prod"
   $(oc new-project gitops-demo-prod)
+fi
+
+# --- OpenShift GitOps: namespace-scoped RBAC (replaces cluster-admin on Argo CD SAs) ---
+# Grant openshift-gitops-argocd-application-controller admin in each app destination namespace
+# so it can sync Helm workloads (Deployments, Routes, Strimzi/Tekton CRs, etc.) without cluster-admin.
+# Grant openshift-gitops-applicationset-controller and openshift-gitops-argocd-server admin only in
+# openshift-gitops so they can reconcile ApplicationSet/Application and serve the API/UI.
+# If you whitelist cluster-scoped resources in AppProject, add a dedicated ClusterRole for those APIs.
+GITOPS_NS="openshift-gitops"
+if oc get ns "${GITOPS_NS}" &>/dev/null; then
+  APP_CTRL_SA="system:serviceaccount:${GITOPS_NS}:openshift-gitops-argocd-application-controller"
+  for ns in gitops-demo-dev gitops-demo-stage gitops-demo-prod; do
+    if oc get ns "${ns}" &>/dev/null; then
+      oc adm policy add-role-to-user admin "${APP_CTRL_SA}" -n "${ns}"
+    fi
+  done
+  oc adm policy add-role-to-user admin \
+    "system:serviceaccount:${GITOPS_NS}:openshift-gitops-applicationset-controller" \
+    -n "${GITOPS_NS}"
+  oc adm policy add-role-to-user admin \
+    "system:serviceaccount:${GITOPS_NS}:openshift-gitops-argocd-server" \
+    -n "${GITOPS_NS}"
 fi
 
 # --- pipeline preparation
